@@ -1,13 +1,22 @@
 import mongoose from "mongoose";
 
+type Role = "admin" | "employee" | "user";
+
 interface IUser {
   username: string;
   name: string;
+  role: Role;
   passwordHash: string;
 }
 
 const userSchema = new mongoose.Schema<IUser>(
   {
+    role: {
+      type: String,
+      required: true,
+      enum: ["admin", "employee", "user"],
+      default: "user",
+    },
     username: {
       type: String,
       required: true,

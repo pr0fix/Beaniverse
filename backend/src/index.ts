@@ -2,8 +2,8 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
-import loginRouter from "./routes/login";
-import signupRouter from "./routes/signup";
+import authRouter from "./routes/auth";
+import coffeeRouter from "./routes/coffee";
 import { PORT } from "./utils/constants";
 
 const app = express();
@@ -24,8 +24,8 @@ app.get("/ping", (_req: Request, res: Response) => {
   res.send("pong");
 });
 
-app.use("/api/signup", signupRouter);
-app.use("/api/login", loginRouter);
+app.use("/auth", authRouter);
+app.use("/api", coffeeRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

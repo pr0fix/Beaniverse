@@ -29,4 +29,37 @@ const login = async (username: string, password: string) => {
   }
 };
 
-export default { login };
+const signup = async (
+  role: string,
+  username: string,
+  name: string,
+  password: string
+) => {
+  const saltRounds = 10;
+  const passwordHash = await bcrypt.hash(password, saltRounds);
+
+  const user = new User({
+    role,
+    username,
+    name,
+    passwordHash,
+  });
+
+  try {
+    const savedUser = await user.save();
+    if (savedUser !== null) {
+      const loginResult = await login(username, password);
+      if (loginResult.error) {
+        throw new Error(loginResult.error);
+      }
+      return loginResult;
+    } else {
+      throw new Error("An error occurred while saving the user");
+    }
+  } catch (error) {
+    console.error("Error during signup:", error);
+    throw new Error("An error occurred while saving the user");
+  }
+};
+
+export default { login, signup };
