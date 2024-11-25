@@ -8,6 +8,7 @@ import { PORT } from "./utils/constants";
 
 const app = express();
 
+// add this to cors configuration later when there is a frontend to test backend with: {origin:"http://localhost:5173"}
 app.use(cors());
 app.use(express.json());
 

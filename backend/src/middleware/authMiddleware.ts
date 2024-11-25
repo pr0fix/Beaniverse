@@ -1,13 +1,11 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
+import { RequestWithUser } from "../utils/types";
 import jwt from "jsonwebtoken";
 import User from "../models/user";
 
-interface CustomRequest extends Request {
-  user?: any;
-}
-
+// check that token exists in request
 export const authenticateToken = (
-  req: CustomRequest,
+  req: RequestWithUser,
   res: Response,
   next: NextFunction
 ) => {
@@ -30,8 +28,9 @@ export const authenticateToken = (
   });
 };
 
+// used to authenticate admin role for POST, PUT & DELETE requests
 export const authenticateRole = (role: string) => {
-  return async (req: CustomRequest, res: Response, next: NextFunction) => {
+  return async (req: RequestWithUser, res: Response, next: NextFunction) => {
     const user = await User.findById(req.user.id);
     if (!user || user.role !== role) {
       res.status(403).json({ error: "Access denied" });

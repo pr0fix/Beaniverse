@@ -1,13 +1,5 @@
 import mongoose from "mongoose";
-
-type Role = "admin" |  "user";
-
-interface IUser {
-  username: string;
-  name: string;
-  role: Role;
-  passwordHash: string;
-}
+import { IUser } from "../utils/types";
 
 const userSchema = new mongoose.Schema<IUser>(
   {

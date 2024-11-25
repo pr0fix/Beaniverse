@@ -1,4 +1,5 @@
 import Coffee from "../models/coffee";
+import { ICoffee } from "../utils/types";
 
 const getAllCoffees = async () => {
   try {
@@ -39,6 +40,19 @@ const addCoffee = async (
   }
 };
 
+const updateCoffee = async (id: string, updatedData: Partial<ICoffee>) => {
+  try {
+    const coffeeToUpdate = await Coffee.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+    if (!coffeeToUpdate) throw new Error("Coffee to update not found");
+    return coffeeToUpdate;
+  } catch (error) {
+    console.error(`Error updating coffee with id {${id}}:`, error);
+    throw new Error("Error deleting coffee");
+  }
+};
+
 const deleteCoffee = async (id: string) => {
   try {
     const coffeeToDelete = await Coffee.findByIdAndDelete(id);
@@ -52,4 +66,10 @@ const deleteCoffee = async (id: string) => {
   }
 };
 
-export default { getAllCoffees, getCoffeeById, addCoffee, deleteCoffee };
+export default {
+  getAllCoffees,
+  getCoffeeById,
+  addCoffee,
+  updateCoffee,
+  deleteCoffee,
+};

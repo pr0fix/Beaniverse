@@ -1,11 +1,5 @@
 import mongoose from "mongoose";
-
-interface ICoffee {
-  name: string;
-  price: number;
-  description: string;
-  category: string;
-}
+import { ICoffee } from "../utils/types";
 
 const coffeeSchema = new mongoose.Schema<ICoffee>(
   {
