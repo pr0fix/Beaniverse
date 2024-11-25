@@ -39,4 +39,17 @@ const addCoffee = async (
   }
 };
 
-export default { getAllCoffees, getCoffeeById, addCoffee };
+const deleteCoffee = async (id: string) => {
+  try {
+    const coffeeToDelete = await Coffee.findByIdAndDelete(id);
+    if (!coffeeToDelete) {
+      throw new Error("Coffee to delete not found");
+    }
+    return coffeeToDelete;
+  } catch (error) {
+    console.error(`Error deleting coffee with id {${id}}:`, error);
+    throw new Error("Error deleting coffee");
+  }
+};
+
+export default { getAllCoffees, getCoffeeById, addCoffee, deleteCoffee };

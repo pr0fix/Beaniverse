@@ -50,9 +50,26 @@ router.get("/coffee/:id", async (req: Request, res: Response) => {
     }
     res.status(200).json(coffee);
   } catch (error) {
-    console.error("Error fetching coffee item:", error);
+    console.error("Error fetching coffee:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+router.delete(
+  "/coffee/:id",
+  authenticateToken,
+  authenticateRole("admin"),
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+      const coffeeToDelete = await coffeeService.deleteCoffee(id);
+      console.log(coffeeToDelete);
+      if (coffeeToDelete) res.status(200).json(coffeeToDelete);
+    } catch (error) {
+      console.error("Error deleting coffee:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
 
 export default router;
