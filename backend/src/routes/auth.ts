@@ -3,6 +3,7 @@ import authService from "../services/authService";
 
 const router = express.Router();
 
+// login user
 router.post("/login", async (req: Request, res: Response) => {
   const {username, password } = req.body;
   try {
@@ -18,6 +19,7 @@ router.post("/login", async (req: Request, res: Response) => {
   }
 });
 
+// add new user
 router.post("/signup", async (req: Request, res: Response) => {
   const { role, username, name, password } = req.body;
   try {

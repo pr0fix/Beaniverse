@@ -1,13 +1,5 @@
 import mongoose from "mongoose";
-
-type Status = "Pending" | "Accepted" | "Preparing" | "Delivered" | "Cancelled";
-
-interface IOrder {
-  userId: string;
-  items: string[];
-  total_price: number;
-  status: Status;
-}
+import { IOrder } from "../utils/types";
 
 const orderSchema = new mongoose.Schema(
   {
