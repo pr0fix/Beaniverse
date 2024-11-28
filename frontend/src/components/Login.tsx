@@ -1,10 +1,8 @@
 import {
   Box,
   Button,
-  Checkbox,
   Container,
   FormControl,
-  FormControlLabel,
   TextField,
   Typography,
 } from "@mui/material";
