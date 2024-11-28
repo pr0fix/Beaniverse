@@ -1,5 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from "../store";
+import { useAppSelector } from "./reduxHooks";
 
-export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
-export const useAppSelector = useSelector.withTypes<RootState>();
+export const useAdmin = () => {
+  const user = useAppSelector((state) => state.user);
+  return user.isAuthenticated && user.role === "admin";
+};

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { LoginCredentials } from "../types";
-const baseUrl = "http://localhost:3000/auth";
+import { LoginCredentials } from "../utils/types";
+import { AUTH_BASE_URL } from "../utils/constants";
 
 let token = null;
 
@@ -9,7 +9,7 @@ const setToken = (newToken: string) => {
 };
 
 const login = async (credentials: LoginCredentials) => {
-  const res = await axios.post(`${baseUrl}/login`, credentials);
+  const res = await axios.post(`${AUTH_BASE_URL}/login`, credentials);
   return res.data;
 };
 

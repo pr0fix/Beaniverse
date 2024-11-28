@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/auth";
 import { AppDispatch } from "../store";
-import { LoginCredentials } from "../types";
+import { LoginCredentials } from "../utils/types";
 
 interface UserState {
   username: string;
   name: string;
   isAuthenticated: boolean;
   authToken: string | null;
+  role: string;
   error: string | null;
   loading: boolean;
 }
@@ -17,6 +18,7 @@ const initialState: UserState = {
   name: "",
   isAuthenticated: false,
   authToken: null,
+  role: "",
   error: null,
   loading: false,
 };
@@ -31,12 +33,18 @@ const authSlice = createSlice({
     },
     authSuccess: (
       state,
-      action: PayloadAction<{ username: string; name: string; token: string }>
+      action: PayloadAction<{
+        username: string;
+        name: string;
+        token: string;
+        role: string;
+      }>
     ) => {
       state.loading = false;
       state.username = action.payload.username;
       state.name = action.payload.name;
       state.authToken = action.payload.token;
+      state.role = action.payload.role;
       state.isAuthenticated = true;
     },
     authFailure: (state, action: PayloadAction<string>) => {
@@ -69,7 +77,11 @@ export const loginUser = (credentials: LoginCredentials) => {
       authService.setToken(user.token);
       dispatch(authSuccess(user));
     } catch (error) {
-      dispatch(authFailure(error instanceof Error ? error.message : "Internal server error"));
+      dispatch(
+        authFailure(
+          error instanceof Error ? error.message : "Internal server error"
+        )
+      );
     }
   };
 };

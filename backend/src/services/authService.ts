@@ -22,7 +22,7 @@ const login = async (username: string, password: string) => {
       expiresIn: 60 * 60,
     });
 
-    return { token, username: user.username, name: user.name };
+    return { token, username: user.username, name: user.name, role: user.role };
   } catch (error) {
     console.error("Error during login:", error);
     return { error: "Internal server error" };

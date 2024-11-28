@@ -23,6 +23,7 @@ export interface ICoffee {
   price: number;
   description: string;
   category: string;
+  stock: number;
 }
 
 export interface RequestWithUser extends Request {
