@@ -41,6 +41,11 @@ const coffeeSlice = createSlice({
       );
       state.loading = false;
     },
+    updateCoffeeSuccess: (state, action: PayloadAction<Coffee>) => {
+      state.items = state.items.map((coffee) =>
+        coffee.id === action.payload.id ? action.payload : coffee
+      );
+    },
   },
 });
 
@@ -50,6 +55,7 @@ export const {
   fetchCoffeesSuccess,
   addCoffeeSuccess,
   removeCoffeeSuccess,
+  updateCoffeeSuccess,
 } = coffeeSlice.actions;
 
 export const initializeCoffees = () => {
@@ -74,6 +80,22 @@ export const addCoffee = (coffeeData: NewCoffee) => {
     try {
       const createdCoffee: Coffee = await coffeeService.addNew(coffeeData);
       dispatch(addCoffeeSuccess(createdCoffee));
+    } catch (error) {
+      dispatch(
+        operationFailure(
+          error instanceof Error ? error.message : "Unknown error"
+        )
+      );
+    }
+  };
+};
+
+export const updateCoffee = (id: string, coffeeData: Partial<Coffee>) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(operationStart());
+    try {
+      const updatedCoffee = await coffeeService.update(id, coffeeData);
+      dispatch(updateCoffeeSuccess(updatedCoffee));
     } catch (error) {
       dispatch(
         operationFailure(

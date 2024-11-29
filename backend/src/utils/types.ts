@@ -22,7 +22,7 @@ export interface ICoffee {
   name: string;
   price: number;
   description: string;
-  category: string;
+  type: string;
   stock: number;
 }
 

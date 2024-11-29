@@ -10,12 +10,19 @@ import {
   TableRow,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { addCoffee, removeCoffee } from "../../reducers/coffeeReducer";
-import { NewCoffee } from "../../utils/types";
+import {
+  addCoffee,
+  removeCoffee,
+  updateCoffee,
+} from "../../reducers/coffeeReducer";
+import { Coffee, NewCoffee } from "../../utils/types";
 import AddCoffeeForm from "./AddCoffeeForm";
+import EditCoffeeForm from "./EditCoffeeForm";
 
 const InventoryManagement: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [selectedCoffee, setSelectedCoffee] = useState<Coffee | null>(null);
   const coffees = useAppSelector((state) => state.coffees);
   const dispatch = useAppDispatch();
 
@@ -26,6 +33,19 @@ const InventoryManagement: React.FC = () => {
 
   const handleRemoveCoffee = (id: string) => {
     dispatch(removeCoffee(id));
+  };
+
+  const handleEditClick = (coffee: Coffee) => {
+    setSelectedCoffee(coffee);
+    setEditOpen(true);
+  };
+
+  const handleEditCoffee = (coffeeData: Partial<Coffee>) => {
+    if (selectedCoffee) {
+      dispatch(updateCoffee(selectedCoffee.id, coffeeData));
+      setEditOpen(false);
+      setSelectedCoffee(null);
+    }
   };
 
   return (
@@ -39,7 +59,7 @@ const InventoryManagement: React.FC = () => {
               <TableCell>Name</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Description</TableCell>
-              <TableCell>Category</TableCell>
+              <TableCell>Type</TableCell>
               <TableCell>In Stock</TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -50,7 +70,7 @@ const InventoryManagement: React.FC = () => {
                 <TableCell>{coffee.name}</TableCell>
                 <TableCell>{coffee.price}€</TableCell>
                 <TableCell>{coffee.description}</TableCell>
-                <TableCell>{coffee.category}</TableCell>
+                <TableCell>{coffee.type}</TableCell>
                 <TableCell>{coffee.stock}</TableCell>
                 <TableCell>
                   <Button
@@ -59,6 +79,13 @@ const InventoryManagement: React.FC = () => {
                     onClick={() => handleRemoveCoffee(coffee.id)}
                   >
                     Remove product
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{ fontWeight: "bold" }}
+                    onClick={() => handleEditClick(coffee)}
+                  >
+                    Edit product
                   </Button>
                 </TableCell>
               </TableRow>
@@ -76,6 +103,17 @@ const InventoryManagement: React.FC = () => {
         onClose={() => setOpen(false)}
         onSubmit={handleAddCoffee}
       />
+      {selectedCoffee && (
+        <EditCoffeeForm
+          open={editOpen}
+          onClose={() => {
+            setEditOpen(false);
+            setSelectedCoffee(null);
+          }}
+          onSubmit={handleEditCoffee}
+          coffee={selectedCoffee as Coffee}
+        />
+      )}
     </Box>
   );
 };

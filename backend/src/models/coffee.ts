@@ -16,7 +16,7 @@ const coffeeSchema = new mongoose.Schema<ICoffee>(
       type: String,
       required: true,
     },
-    category: {
+    type: {
       type: String,
       required: true,
     },

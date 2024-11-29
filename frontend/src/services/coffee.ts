@@ -14,8 +14,24 @@ const addNew = async (coffee: NewCoffee): Promise<Coffee> => {
   const config = {
     headers: { Authorization: token },
   };
+
   const res = await axios.post<Coffee>(
     `${API_BASE_URL}/coffee`,
+    coffee,
+    config
+  );
+  return res.data;
+};
+
+const update = async (id: string, coffee: Partial<Coffee>): Promise<Coffee> => {
+  const token = authService.getToken();
+
+  const config = {
+    headers: { Authorization: token },
+  };
+
+  const res = await axios.put<Coffee>(
+    `${API_BASE_URL}/coffee/${id}`,
     coffee,
     config
   );
@@ -32,4 +48,4 @@ const remove = async (id: string) => {
   await axios.delete(`${API_BASE_URL}/coffee/${id.toString()}`, config);
 };
 
-export default { getAll, addNew, remove };
+export default { getAll, addNew, remove, update };

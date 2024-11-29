@@ -7,43 +7,32 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import { NewCoffee } from "../../utils/types";
+import { Coffee } from "../../utils/types";
 
-interface AddCoffeeFormProps {
+interface EditCoffeeFormProps {
+  coffee: Coffee;
   open: boolean;
   onClose: () => void;
-  onSubmit: (coffee: NewCoffee) => void;
+  onSubmit: (coffee: Partial<Coffee>) => void;
 }
 
-const AddCoffeeForm: React.FC<AddCoffeeFormProps> = ({
+const EditCoffeeForm: React.FC<EditCoffeeFormProps> = ({
+  coffee,
   open,
   onClose,
   onSubmit,
 }) => {
-  const [formData, setFormData] = useState<NewCoffee>({
-    name: "",
-    price: 0,
-    description: "",
-    type: "",
-    stock: 0,
-  });
+  const [formData, setFormData] = useState<Coffee>(coffee);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
-    setFormData({
-      name: "",
-      price: 0,
-      description: "",
-      type: "",
-      stock: 0,
-    });
     onClose();
   };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Add New Coffee</DialogTitle>
+      <DialogTitle>Edit Coffee Details</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <TextField
@@ -98,7 +87,7 @@ const AddCoffeeForm: React.FC<AddCoffeeFormProps> = ({
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
           <Button type="submit" variant="contained">
-            Add Product
+            Save Changes
           </Button>
         </DialogActions>
       </form>
@@ -106,4 +95,4 @@ const AddCoffeeForm: React.FC<AddCoffeeFormProps> = ({
   );
 };
 
-export default AddCoffeeForm;
+export default EditCoffeeForm;
