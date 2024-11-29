@@ -22,4 +22,14 @@ const addNew = async (coffee: NewCoffee): Promise<Coffee> => {
   return res.data;
 };
 
-export default { getAll, addNew };
+const remove = async (id: string) => {
+  const token = authService.getToken();
+
+  const config = {
+    headers: { Authorization: token },
+  };
+
+  await axios.delete(`${API_BASE_URL}/coffee/${id.toString()}`, config);
+};
+
+export default { getAll, addNew, remove };

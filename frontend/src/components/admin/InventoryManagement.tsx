@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { addCoffee } from "../../reducers/coffeeReducer";
+import { addCoffee, removeCoffee } from "../../reducers/coffeeReducer";
 import { NewCoffee } from "../../utils/types";
 import AddCoffeeForm from "./AddCoffeeForm";
 
@@ -22,6 +22,10 @@ const InventoryManagement: React.FC = () => {
   const handleAddCoffee = (coffee: NewCoffee) => {
     dispatch(addCoffee(coffee));
     setOpen(false);
+  };
+
+  const handleRemoveCoffee = (id: string) => {
+    dispatch(removeCoffee(id));
   };
 
   return (
@@ -37,6 +41,7 @@ const InventoryManagement: React.FC = () => {
               <TableCell>Description</TableCell>
               <TableCell>Category</TableCell>
               <TableCell>In Stock</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -47,6 +52,15 @@ const InventoryManagement: React.FC = () => {
                 <TableCell>{coffee.description}</TableCell>
                 <TableCell>{coffee.category}</TableCell>
                 <TableCell>{coffee.stock}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: "red", fontWeight: "bold" }}
+                    onClick={() => handleRemoveCoffee(coffee.id)}
+                  >
+                    Remove product
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

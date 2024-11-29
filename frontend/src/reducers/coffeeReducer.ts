@@ -19,40 +19,48 @@ const coffeeSlice = createSlice({
   name: "coffees",
   initialState,
   reducers: {
-    fetchCoffeesStart: (state) => {
+    operationStart: (state) => {
       state.loading = true;
       state.error = null;
+    },
+    operationFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
     },
     fetchCoffeesSuccess: (state, action: PayloadAction<Coffee[]>) => {
       state.items = action.payload;
       state.loading = false;
     },
-    fetchCoffeesFailure: (state, action: PayloadAction<string>) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
     addCoffeeSuccess: (state, action: PayloadAction<Coffee>) => {
       state.items.push(action.payload);
+      state.loading = false;
+    },
+    removeCoffeeSuccess: (state, action: PayloadAction<{ id: string }>) => {
+      state.items = state.items.filter(
+        (coffee) => coffee.id !== action.payload.id
+      );
+      state.loading = false;
     },
   },
 });
 
 export const {
-  fetchCoffeesStart,
+  operationStart,
+  operationFailure,
   fetchCoffeesSuccess,
-  fetchCoffeesFailure,
   addCoffeeSuccess,
+  removeCoffeeSuccess,
 } = coffeeSlice.actions;
 
 export const initializeCoffees = () => {
   return async (dispatch: AppDispatch) => {
+    dispatch(operationStart());
     try {
-      dispatch(fetchCoffeesStart());
       const coffees = await coffeeService.getAll();
       dispatch(fetchCoffeesSuccess(coffees));
     } catch (error) {
       dispatch(
-        fetchCoffeesFailure(
+        operationFailure(
           error instanceof Error ? error.message : "Unknown error"
         )
       );
@@ -62,10 +70,33 @@ export const initializeCoffees = () => {
 
 export const addCoffee = (coffeeData: NewCoffee) => {
   return async (dispatch: AppDispatch) => {
+    dispatch(operationStart());
     try {
       const createdCoffee: Coffee = await coffeeService.addNew(coffeeData);
       dispatch(addCoffeeSuccess(createdCoffee));
-    } catch (error) {}
+    } catch (error) {
+      dispatch(
+        operationFailure(
+          error instanceof Error ? error.message : "Unknown error"
+        )
+      );
+    }
+  };
+};
+
+export const removeCoffee = (id: string) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(operationStart());
+    try {
+      await coffeeService.remove(id);
+      dispatch(removeCoffeeSuccess({ id }));
+    } catch (error) {
+      dispatch(
+        operationFailure(
+          error instanceof Error ? error.message : "Unknown error"
+        )
+      );
+    }
   };
 };
 

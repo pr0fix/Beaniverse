@@ -4,6 +4,7 @@ import {
   authenticateRole,
   authenticateToken,
 } from "../middleware/authMiddleware";
+import Coffee from "../models/coffee";
 
 const router = express.Router();
 
@@ -90,12 +91,13 @@ router.delete(
   async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-      const coffeeToDelete = await coffeeService.deleteCoffee(id);
-      if (coffeeToDelete) {
-        res.status(200).json({ message: "Coffee deleted successfully" });
-      } else {
+      const exists = await Coffee.findById(id);
+      if (!exists) {
         res.status(404).json({ error: "Coffee not found" });
+        return;
       }
+      await coffeeService.deleteCoffee(id);
+      res.status(200).json({ message: "Coffee deleted successfully" });
     } catch (error) {
       console.error("Error deleting coffee:", error);
       res.status(500).json({ error: "Internal server error" });

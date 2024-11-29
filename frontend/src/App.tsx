@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
 import { useAdmin } from "./hooks/authHooks";
 import { getUser, logoutUser } from "./reducers/authReducer";
 import AdminDashboard from "./components/admin/AdminDashboard";
-import Login from "./components/Login";
+import Login from "./components/auth/Login";
 import { initializeCoffees } from "./reducers/coffeeReducer";
+import Home from "./components/Home";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,15 +29,10 @@ const App = () => {
     initializeAuth();
   }, [dispatch]);
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <CircularProgress />;
 
   return (
     <Routes>
-      <Route
-        path="/login"
-        element={!user.isAuthenticated ? <Login /> : <Navigate to="/" />}
-      />
-
       <Route
         path="/admin"
         element={
@@ -58,13 +54,24 @@ const App = () => {
                   Admin Dashboard
                 </Button>
               )}
-              <div>hello {user.name}</div>
-              <button onClick={handleSignOut}>sign out</button>
+              <Home />
+              <Button
+                variant="contained"
+                sx={{ backgroundColor: "red", fontWeight: "bold" }}
+                onClick={handleSignOut}
+              >
+                sign out
+              </Button>
             </div>
           ) : (
             <Navigate to="/login" />
           )
         }
+      />
+
+      <Route
+        path="/login"
+        element={!user.isAuthenticated ? <Login /> : <Navigate to="/" />}
       />
     </Routes>
   );

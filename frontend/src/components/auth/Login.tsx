@@ -7,8 +7,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useAppDispatch } from "../hooks/reduxHooks";
-import { loginUser } from "../reducers/authReducer";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { loginUser } from "../../reducers/authReducer";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
