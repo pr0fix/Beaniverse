@@ -16,9 +16,14 @@ const coffeeSchema = new mongoose.Schema<ICoffee>(
       type: String,
       required: true,
     },
-    category: {
+    type: {
       type: String,
       required: true,
+    },
+    stock: {
+      type: Number,
+      required: true,
+      default: 0,
     },
   },
   { versionKey: false }

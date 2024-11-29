@@ -28,9 +28,10 @@ const addCoffee = async (
   name: string,
   price: number,
   description: string,
-  category: string
+  type: string,
+  stock: number
 ) => {
-  const coffee = new Coffee({ name, price, description, category });
+  const coffee = new Coffee({ name, price, description, type, stock });
   try {
     const savedCoffee = await coffee.save();
     return savedCoffee;

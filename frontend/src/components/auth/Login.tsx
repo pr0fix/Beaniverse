@@ -1,18 +1,16 @@
+import React, { useState } from "react";
 import {
   Box,
   Button,
-  Checkbox,
   Container,
   FormControl,
-  FormControlLabel,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
-import { useAppDispatch } from "../hooks/authHooks";
-import { loginUser } from "../reducers/authReducer";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { loginUser } from "../../reducers/authReducer";
 
-const Login = () => {
+const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useAppDispatch();

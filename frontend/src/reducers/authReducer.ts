@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/auth";
 import { AppDispatch } from "../store";
-import { LoginCredentials } from "../types";
+import { LoginCredentials, LoginResponse } from "../utils/types";
 
 interface UserState {
   username: string;
   name: string;
   isAuthenticated: boolean;
   authToken: string | null;
+  role: string;
   error: string | null;
   loading: boolean;
 }
@@ -17,6 +18,7 @@ const initialState: UserState = {
   name: "",
   isAuthenticated: false,
   authToken: null,
+  role: "",
   error: null,
   loading: false,
 };
@@ -31,12 +33,16 @@ const authSlice = createSlice({
     },
     authSuccess: (
       state,
-      action: PayloadAction<{ username: string; name: string; token: string }>
+      action: PayloadAction<{
+        username: string;
+        name: string;
+        role: string;
+      }>
     ) => {
       state.loading = false;
       state.username = action.payload.username;
       state.name = action.payload.name;
-      state.authToken = action.payload.token;
+      state.role = action.payload.role;
       state.isAuthenticated = true;
     },
     authFailure: (state, action: PayloadAction<string>) => {
@@ -53,10 +59,12 @@ export const { authStart, authSuccess, authFailure, signOut } =
 export const getUser = () => {
   return (dispatch: AppDispatch) => {
     const loggedInUserJSON = window.localStorage.getItem("loggedInUser");
-    if (loggedInUserJSON) {
+    const storedToken = window.localStorage.getItem("userToken");
+
+    if (loggedInUserJSON && storedToken) {
       const loggedInUser = JSON.parse(loggedInUserJSON);
       dispatch(authSuccess(loggedInUser));
-      authService.setToken(loggedInUser.token);
+      authService.setToken(storedToken.replace("Bearer ", ""));
     }
   };
 };
@@ -64,12 +72,24 @@ export const getUser = () => {
 export const loginUser = (credentials: LoginCredentials) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const user = await authService.login(credentials);
-      window.localStorage.setItem("loggedInUser", JSON.stringify(user));
-      authService.setToken(user.token);
-      dispatch(authSuccess(user));
+      const user: LoginResponse = await authService.login(credentials);
+
+      const userForStorage = {
+        name: user.name,
+        username: user.username,
+        role: user.role,
+      };
+      window.localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify(userForStorage)
+      );
+      dispatch(authSuccess(userForStorage));
     } catch (error) {
-      dispatch(authFailure(error instanceof Error ? error.message : "Internal server error"));
+      dispatch(
+        authFailure(
+          error instanceof Error ? error.message : "Internal server error"
+        )
+      );
     }
   };
 };
@@ -77,6 +97,7 @@ export const loginUser = (credentials: LoginCredentials) => {
 export const logoutUser = () => {
   return (dispatch: AppDispatch) => {
     window.localStorage.removeItem("loggedInUser");
+    authService.logout();
     dispatch(signOut());
   };
 };

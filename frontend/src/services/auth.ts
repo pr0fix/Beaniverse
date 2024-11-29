@@ -1,16 +1,33 @@
 import axios from "axios";
-import { LoginCredentials } from "../types";
-const baseUrl = "http://localhost:3000/auth";
+import { LoginCredentials } from "../utils/types";
+import { AUTH_BASE_URL } from "../utils/constants";
 
-let token = null;
+let token: string | null = null;
+
+const TOKEN_KEY = "userToken";
 
 const setToken = (newToken: string) => {
   token = `Bearer ${newToken}`;
+  window.localStorage.setItem(TOKEN_KEY, token);
+};
+
+const getToken = () => {
+  const storedToken = window.localStorage.getItem(TOKEN_KEY);
+  token = storedToken;
+  return token;
 };
 
 const login = async (credentials: LoginCredentials) => {
-  const res = await axios.post(`${baseUrl}/login`, credentials);
+  const res = await axios.post(`${AUTH_BASE_URL}/login`, credentials);
+  if (res.data.token) {
+    setToken(res.data.token);
+  }
   return res.data;
 };
 
-export default { setToken, login };
+const logout = () => {
+  token = null;
+  window.localStorage.removeItem(TOKEN_KEY);
+};
+
+export default { setToken, getToken, login, logout };
