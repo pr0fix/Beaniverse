@@ -1,15 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import coffeeService from "../services/coffee";
 import { AppDispatch } from "../store";
-
-interface Coffee {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  category: string;
-  stock: number;
-}
+import { Coffee, NewCoffee } from "../utils/types";
 
 interface CoffeeState {
   items: Coffee[];
@@ -39,11 +31,18 @@ const coffeeSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    addCoffeeSuccess: (state, action: PayloadAction<Coffee>) => {
+      state.items.push(action.payload);
+    },
   },
 });
 
-export const { fetchCoffeesStart, fetchCoffeesSuccess, fetchCoffeesFailure } =
-  coffeeSlice.actions;
+export const {
+  fetchCoffeesStart,
+  fetchCoffeesSuccess,
+  fetchCoffeesFailure,
+  addCoffeeSuccess,
+} = coffeeSlice.actions;
 
 export const initializeCoffees = () => {
   return async (dispatch: AppDispatch) => {
@@ -58,6 +57,15 @@ export const initializeCoffees = () => {
         )
       );
     }
+  };
+};
+
+export const addCoffee = (coffeeData: NewCoffee) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const createdCoffee: Coffee = await coffeeService.addNew(coffeeData);
+      dispatch(addCoffeeSuccess(createdCoffee));
+    } catch (error) {}
   };
 };
 

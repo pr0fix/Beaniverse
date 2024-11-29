@@ -41,14 +41,15 @@ router.post(
   authenticateToken,
   authenticateRole("admin"),
   async (req: Request, res: Response) => {
-    const { name, price, description, category } = req.body;
+    const { name, price, description, category, stock } = req.body;
 
     try {
       const newCoffee = await coffeeService.addCoffee(
         name,
         price,
         description,
-        category
+        category,
+        stock
       );
       res.status(201).json(newCoffee);
     } catch (error) {
