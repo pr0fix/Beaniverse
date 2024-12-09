@@ -1,4 +1,4 @@
-import { Box, Button, Tab, Tabs } from "@mui/material";
+import { Button, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 import InventoryManagement from "./InventoryManagement";
 import { useNavigate } from "react-router";
@@ -9,33 +9,38 @@ const AdminDashboard: React.FC = () => {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
   return (
-    <Box>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Tabs value={value} onChange={(_e, newValue) => setValue(newValue)}>
+    <div>
+      <div className="flex justify-between items-center">
+        <Tabs
+          TabIndicatorProps={{
+            style: { background: "#6F4E37" },
+          }}
+          sx={{
+            "& .Mui-selected": {
+              color: "#6F3E37 !important",
+            },
+          }}
+          value={value}
+          onChange={(_e, newValue) => setValue(newValue)}
+        >
           <Tab label="Stock Management" />
           <Tab label="Orders" />
           <Tab label="Users" />
-        </Tabs>{" "}
+        </Tabs>
         <Button
-          sx={{ marginLeft: "auto" }}
-          variant="contained"
+          className="mr-4 text-primary-main"
           onClick={() => navigate("/")}
         >
-          Back to Beaniverse
+          exit dashboard
         </Button>
-      </Box>
-      <Box>
+      </div>
+
+      <div>
         {value === 0 && <InventoryManagement />}
         {/* {value === 1 && <OrderManagement />}
         {value === 2 && <UserManagement />} */}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

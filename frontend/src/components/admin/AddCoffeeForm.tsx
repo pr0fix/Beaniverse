@@ -43,7 +43,7 @@ const AddCoffeeForm: React.FC<AddCoffeeFormProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Add New Coffee</DialogTitle>
+      <DialogTitle className="text-primary-main">Add New Coffee</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <TextField

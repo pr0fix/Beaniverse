@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Box,
   Button,
   Table,
   TableBody,
@@ -8,6 +7,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import {
@@ -20,19 +20,23 @@ import AddCoffeeForm from "./AddCoffeeForm";
 import EditCoffeeForm from "./EditCoffeeForm";
 
 const InventoryManagement: React.FC = () => {
-  const [open, setOpen] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [selectedCoffee, setSelectedCoffee] = useState<Coffee | null>(null);
   const coffees = useAppSelector((state) => state.coffees);
   const dispatch = useAppDispatch();
 
   const handleAddCoffee = (coffee: NewCoffee) => {
-    dispatch(addCoffee(coffee));
-    setOpen(false);
+    if (window.confirm(`Are you sure you want to add ${coffee.name}?`)) {
+      dispatch(addCoffee(coffee));
+      setAddOpen(false);
+    }
   };
 
   const handleRemoveCoffee = (id: string) => {
-    dispatch(removeCoffee(id));
+    if (window.confirm(`Are you sure you want to remove this coffee?`)) {
+      dispatch(removeCoffee(id));
+    }
   };
 
   const handleEditClick = (coffee: Coffee) => {
@@ -42,17 +46,24 @@ const InventoryManagement: React.FC = () => {
 
   const handleEditCoffee = (coffeeData: Partial<Coffee>) => {
     if (selectedCoffee) {
-      dispatch(updateCoffee(selectedCoffee.id, coffeeData));
-      setEditOpen(false);
-      setSelectedCoffee(null);
+      if (window.confirm(`Are you sure you want to edit ${coffeeData.name}?`)) {
+        dispatch(updateCoffee(selectedCoffee.id, coffeeData));
+        setEditOpen(false);
+        setSelectedCoffee(null);
+      }
     }
   };
 
   return (
-    <Box>
-      <TableContainer
-        style={{ display: "flex", justifyContent: "center", marginTop: 50 }}
+    <div className="m-8">
+      <Button
+        variant="contained"
+        className="bg-primary-main mb-4"
+        onClick={() => setAddOpen(true)}
       >
+        Add Product
+      </Button>
+      <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
@@ -75,17 +86,18 @@ const InventoryManagement: React.FC = () => {
                 <TableCell>
                   <Button
                     variant="contained"
-                    sx={{ backgroundColor: "red", fontWeight: "bold" }}
-                    onClick={() => handleRemoveCoffee(coffee.id)}
-                  >
-                    Remove product
-                  </Button>
-                  <Button
-                    variant="contained"
-                    sx={{ fontWeight: "bold" }}
+                    className="bg-primary-main mr-2"
                     onClick={() => handleEditClick(coffee)}
                   >
                     Edit product
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    className="bg-red-900"
+                    onClick={() => handleRemoveCoffee(coffee.id)}
+                  >
+                    Remove product
                   </Button>
                 </TableCell>
               </TableRow>
@@ -94,13 +106,9 @@ const InventoryManagement: React.FC = () => {
         </Table>
       </TableContainer>
 
-      <Button variant="contained" onClick={() => setOpen(true)}>
-        Add Product
-      </Button>
-
       <AddCoffeeForm
-        open={open}
-        onClose={() => setOpen(false)}
+        open={addOpen}
+        onClose={() => setAddOpen(false)}
         onSubmit={handleAddCoffee}
       />
       {selectedCoffee && (
@@ -114,7 +122,7 @@ const InventoryManagement: React.FC = () => {
           coffee={selectedCoffee as Coffee}
         />
       )}
-    </Box>
+    </div>
   );
 };
 

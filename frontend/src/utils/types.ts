@@ -19,4 +19,4 @@ export interface Coffee {
   stock: number;
 }
 
-export type NewCoffee = Omit<Coffee, "id">
+export type NewCoffee = Omit<Coffee, "id">;
