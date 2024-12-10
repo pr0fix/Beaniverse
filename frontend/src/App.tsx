@@ -12,6 +12,7 @@ import Navbar from "./components/e-commerce/Navbar";
 import Home from "./components/e-commerce/Home";
 import Products from "./components/e-commerce/Products";
 import background from "./assets/general_background.png";
+import SignUp from "./components/auth/SignUp";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -65,6 +66,12 @@ const App = () => {
           path="/login"
           element={
             user.isAuthenticated ? <Navigate to="/" replace /> : <Login />
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            user.isAuthenticated ? <Navigate to="/" replace /> : <SignUp />
           }
         />
       </Routes>

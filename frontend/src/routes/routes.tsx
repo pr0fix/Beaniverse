@@ -3,6 +3,7 @@ import Home from "../components/e-commerce/Products";
 import Login from "../components/auth/Login";
 import AdminDashboard from "../components/admin/AdminDashboard";
 import Products from "../components/e-commerce/Products";
+import SignUp from "../components/auth/SignUp";
 
 interface RouteConfig {
   path: string;
@@ -21,6 +22,11 @@ export const routes: RouteConfig[] = [
   {
     path: "/login",
     component: Login,
+    protected: false,
+  },
+  {
+    path: "/signup",
+    component: SignUp,
     protected: false,
   },
   {

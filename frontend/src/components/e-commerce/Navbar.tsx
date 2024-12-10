@@ -6,7 +6,7 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 
 const Navbar = ({ handleSignOut }: { handleSignOut: () => void }) => {
   const user = useAppSelector((state) => state.user);
-  const isAdmin = user.role;
+  const userRole = user.role;
 
   return (
     <AppBar
@@ -48,7 +48,7 @@ const Navbar = ({ handleSignOut }: { handleSignOut: () => void }) => {
         <div className="flex items-center gap-2">
           {user.isAuthenticated ? (
             <>
-              {isAdmin && (
+              {userRole === "admin" && (
                 <Button
                   component={Link}
                   to="/admin"
@@ -69,7 +69,12 @@ const Navbar = ({ handleSignOut }: { handleSignOut: () => void }) => {
               </Button>
             </>
           ) : (
-            <Button component={Link} to="/login" className="text-white bg-transparent" disableRipple>
+            <Button
+              component={Link}
+              to="/login"
+              className="text-white bg-transparent"
+              disableRipple
+            >
               Sign In
             </Button>
           )}
