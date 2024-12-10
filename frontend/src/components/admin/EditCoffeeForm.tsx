@@ -32,7 +32,9 @@ const EditCoffeeForm: React.FC<EditCoffeeFormProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Edit Coffee Details</DialogTitle>
+      <DialogTitle>
+        Edit Coffee Details
+      </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <TextField
