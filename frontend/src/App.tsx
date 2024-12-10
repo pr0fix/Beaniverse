@@ -7,9 +7,11 @@ import { getUser, logoutUser } from "./reducers/authReducer";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import Login from "./components/auth/Login";
 import { initializeCoffees } from "./reducers/coffeeReducer";
-import Products from "./components/Products";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/e-commerce/Navbar";
+import Home from "./components/e-commerce/Home";
+import Products from "./components/e-commerce/Products";
+import background from "./assets/general_background.png";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,8 +39,13 @@ const App = () => {
     );
 
   return (
-    <div>
+    <>
+      <div
+        className="fixed inset-0 bg-center -z-10 min-h-screen bg-cover"
+        style={{ backgroundImage: `url(${background})` }}
+      />
       <Navbar handleSignOut={handleSignOut} />
+
       <Routes>
         <Route
           path="/admin"
@@ -52,7 +59,8 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/" element={<Products />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
         <Route
           path="/login"
           element={
@@ -60,7 +68,7 @@ const App = () => {
           }
         />
       </Routes>
-    </div>
+    </>
   );
 };
 

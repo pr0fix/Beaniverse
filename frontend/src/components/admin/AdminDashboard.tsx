@@ -9,7 +9,7 @@ const AdminDashboard: React.FC = () => {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
   return (
-    <div>
+    <div className="pt-16">
       <div className="flex justify-between items-center">
         <Tabs
           TabIndicatorProps={{
@@ -28,7 +28,7 @@ const AdminDashboard: React.FC = () => {
           <Tab label="Users" />
         </Tabs>
         <Button
-          className="mr-4 text-primary-main"
+          className="mr-4 text-white font-extrabold bg-red-900"
           onClick={() => navigate("/")}
         >
           exit dashboard

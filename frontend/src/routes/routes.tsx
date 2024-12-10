@@ -1,7 +1,8 @@
 import React from "react";
-import Home from "../components/Products";
+import Home from "../components/e-commerce/Products";
 import Login from "../components/auth/Login";
 import AdminDashboard from "../components/admin/AdminDashboard";
+import Products from "../components/e-commerce/Products";
 
 interface RouteConfig {
   path: string;
@@ -27,5 +28,10 @@ export const routes: RouteConfig[] = [
     component: AdminDashboard,
     protected: true,
     adminOnly: true,
+  },
+  {
+    path: "/products",
+    component: Products,
+    protected: false,
   },
 ];

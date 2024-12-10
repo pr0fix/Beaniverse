@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import {
   Button,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import {
@@ -55,7 +55,7 @@ const InventoryManagement: React.FC = () => {
   };
 
   return (
-    <div className="m-8">
+    <div className="m-8 p-3 bg-neutral-100 rounded-md">
       <Button
         variant="contained"
         className="bg-primary-main mb-4"
@@ -63,7 +63,7 @@ const InventoryManagement: React.FC = () => {
       >
         Add Product
       </Button>
-      <TableContainer>
+      <TableContainer component={Paper} style={{ height: "600px", overflowY:"auto"}}>
         <Table>
           <TableHead>
             <TableRow>
@@ -76,6 +76,7 @@ const InventoryManagement: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
+            
             {coffees.items.map((coffee) => (
               <TableRow key={coffee.id}>
                 <TableCell>{coffee.name}</TableCell>
