@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "../services/auth";
 import { AppDispatch } from "../store";
-import { LoginCredentials, LoginResponse } from "../utils/types";
+import {
+  LoginCredentials,
+  AuthResponse,
+  SignUpCredentials,
+} from "../utils/types";
 
 interface UserState {
   username: string;
@@ -72,7 +76,7 @@ export const getUser = () => {
 export const loginUser = (credentials: LoginCredentials) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const user: LoginResponse = await authService.login(credentials);
+      const user: AuthResponse = await authService.login(credentials);
 
       const userForStorage = {
         name: user.name,
@@ -89,6 +93,26 @@ export const loginUser = (credentials: LoginCredentials) => {
         authFailure(
           error instanceof Error ? error.message : "Internal server error"
         )
+      );
+    }
+  };
+};
+
+export const signUpUser = (credentials: SignUpCredentials) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const user: AuthResponse = await authService.signup(credentials);
+
+      if (user) {
+        const loginCredentials = {
+          username: credentials.username,
+          password: credentials.password,
+        };
+        dispatch(loginUser(loginCredentials));
+      }
+    } catch (error) {
+      dispatch(
+        authFailure(error instanceof Error ? error.message : "Signup failed")
       );
     }
   };

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginCredentials } from "../utils/types";
+import { LoginCredentials, SignUpCredentials } from "../utils/types";
 import { AUTH_BASE_URL } from "../utils/constants";
 
 let token: string | null = null;
@@ -25,9 +25,20 @@ const login = async (credentials: LoginCredentials) => {
   return res.data;
 };
 
+const signup = async (credentials: SignUpCredentials) => {
+  const res = await axios.post(`${AUTH_BASE_URL}/signup`, credentials);
+
+  if (res.data.token) {
+    setToken(res.data.token);
+    login(credentials);
+  }
+
+  return res.data;
+};
+
 const logout = () => {
   token = null;
   window.localStorage.removeItem(TOKEN_KEY);
 };
 
-export default { setToken, getToken, login, logout };
+export default { setToken, getToken, login, signup, logout };

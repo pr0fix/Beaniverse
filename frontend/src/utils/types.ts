@@ -3,7 +3,11 @@ export interface LoginCredentials {
   password: string;
 }
 
-export interface LoginResponse {
+export interface SignUpCredentials extends LoginCredentials {
+  name: string;
+}
+
+export interface AuthResponse {
   token: string;
   name: string;
   username: string;
