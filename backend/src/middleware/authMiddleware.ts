@@ -36,11 +36,9 @@ export const authenticateRole = async (
   next: NextFunction
 ) => {
   try {
-    console.log("req user:", req.user);
     const userId = req.user.id;
-
     const user = await User.findById(userId);
-    console.log(user)
+    
     if (!user || user.role !== "admin") {
       res.status(403).json({ error: "Access denied." });
       return;

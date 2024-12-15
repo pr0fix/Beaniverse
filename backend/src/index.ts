@@ -4,6 +4,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import authRouter from "./routes/auth";
 import coffeeRouter from "./routes/coffee";
+import userRouter from "./routes/users"
 import { PORT } from "./utils/constants";
 
 const app = express();
@@ -26,7 +27,7 @@ app.get("/ping", (_req: Request, res: Response) => {
 });
 
 app.use("/auth", authRouter);
-app.use("/api", coffeeRouter);
+app.use("/api", [coffeeRouter, userRouter]);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
