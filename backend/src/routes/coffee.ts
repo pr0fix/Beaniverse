@@ -40,7 +40,7 @@ router.get("/coffee/:id", async (req: Request, res: Response) => {
 router.post(
   "/coffee",
   authenticateToken,
-  authenticateRole("admin"),
+  authenticateRole,
   async (req: Request, res: Response) => {
     const { name, price, description, type, stock } = req.body;
 
@@ -64,7 +64,7 @@ router.post(
 router.put(
   "/coffee/:id",
   authenticateToken,
-  authenticateRole("admin"),
+  authenticateRole,
   async (req: Request, res: Response) => {
     const { id } = req.params;
     const { ...updatedData } = req.body;
@@ -87,7 +87,7 @@ router.put(
 router.delete(
   "/coffee/:id",
   authenticateToken,
-  authenticateRole("admin"),
+  authenticateRole,
   async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
