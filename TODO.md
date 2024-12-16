@@ -1,25 +1,41 @@
 # TODO List
 
 ## Backend
-- [x] **Database Setup**: Create MongoDB Atlas database and connect to it.
-- [x] **Models**: Create Mongoose models for:
-  - Coffees
-  - Orders
-  - Users
-- [x] **Auth Routes**: Develop routes for:
-  - Login
-  - Signup
-  - Admin signup
-- [x] **Coffee Routes**: Develop routes for:
-  - Get all coffees
-  - Get coffee by ID
-  - Add new coffee
-  - Edit coffee details
-  - Delete coffee
-- [x] **User Routes**: Develop routes for:
-  - Get all users
-  - Get user by ID
-- [x] **Database Services**: Create services for all the above routes.
+**Database Setup**: 
+- [x] Create MongoDB Atlas database and connect to it.
+
+**Models**: Create Mongoose models for:
+- [x] Coffees
+- [x] Orders
+- [x] Users
+
+**Auth Routes**: Develop routes for:
+- [x] Login
+- [x] Signup
+- [x] Admin signup
+
+**Coffee Routes**: Develop routes for:
+- [x] Get all coffees
+- [x] Get coffee by ID
+- [x] Add new coffee
+- [x] Edit coffee details
+- [x] Delete coffee
+
+**User Routes**: Develop routes for:
+- [x] Get all users
+- [x] Get user by ID
+
+**Database Services**:
+- [x] Services for auth
+- [x] Services for coffee
+- [x] Services for 
+
+**Order Routes**: Develop routes for:
+- [ ] Get all orders
+- [ ] Get order by ID
+- [ ] Add new order
+- [ ] Edit order details
+- [ ] Delete order
 
 ---
 
