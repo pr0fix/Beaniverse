@@ -1,13 +1,11 @@
-import { Button, Tab, Tabs } from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 import InventoryManagement from "./InventoryManagement";
 import { useNavigate } from "react-router";
-// import OrderManagement from "./OrderManagement";
-// import UserManagement from "./UserManagement";
+import UserManagement from "./UserManagement";
 
 const AdminDashboard: React.FC = () => {
   const [value, setValue] = useState(0);
-  const navigate = useNavigate();
   return (
     <div className="pt-16">
       <div className="flex justify-between items-center">
@@ -24,21 +22,14 @@ const AdminDashboard: React.FC = () => {
           onChange={(_e, newValue) => setValue(newValue)}
         >
           <Tab label="Stock Management" />
-          <Tab label="Orders" />
           <Tab label="Users" />
+          <Tab label="Orders" />
         </Tabs>
-        <Button
-          className="mr-4 text-white font-extrabold bg-red-900"
-          onClick={() => navigate("/")}
-        >
-          exit dashboard
-        </Button>
       </div>
 
       <div>
         {value === 0 && <InventoryManagement />}
-        {/* {value === 1 && <OrderManagement />}
-        {value === 2 && <UserManagement />} */}
+        {value === 1 && <UserManagement />}
       </div>
     </div>
   );

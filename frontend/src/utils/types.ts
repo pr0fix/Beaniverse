@@ -23,4 +23,11 @@ export interface Coffee {
   stock: number;
 }
 
+export interface User {
+  id: string;
+  name: string;
+  username: string;
+  role: string;
+}
+
 export type NewCoffee = Omit<Coffee, "id">;

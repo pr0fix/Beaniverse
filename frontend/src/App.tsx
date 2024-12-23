@@ -13,6 +13,7 @@ import Home from "./components/e-commerce/Home";
 import Products from "./components/e-commerce/Products";
 import background from "./assets/general_background.png";
 import SignUp from "./components/auth/SignUp";
+import { initializeUsers } from "./reducers/userReducer";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +27,7 @@ const App = () => {
 
   useEffect(() => {
     const initializeAuth = async () => {
-      await Promise.all([dispatch(getUser()), dispatch(initializeCoffees())]);
+      await Promise.all([dispatch(getUser()), dispatch(initializeCoffees()), dispatch(initializeUsers())]);
       setIsLoading(false);
     };
     initializeAuth();
