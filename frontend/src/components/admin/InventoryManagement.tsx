@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   Button,
   Paper,
@@ -19,7 +19,7 @@ import { Coffee, NewCoffee } from "../../utils/types";
 import AddCoffeeForm from "./AddCoffeeForm";
 import EditCoffeeForm from "./EditCoffeeForm";
 
-const InventoryManagement: React.FC = () => {
+const InventoryManagement = () => {
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [selectedCoffee, setSelectedCoffee] = useState<Coffee | null>(null);

@@ -13,7 +13,7 @@ interface ProductCardProps {
   coffee: Coffee;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ coffee }) => {
+const ProductCard = ({ coffee }: ProductCardProps) => {
   return (
     <Card className="bg-[#F5E6D3] shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg border border-[#8B4513]/20">
       <CardMedia

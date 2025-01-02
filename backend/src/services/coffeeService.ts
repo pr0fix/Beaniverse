@@ -19,7 +19,7 @@ const getCoffeeById = async (id: string) => {
     }
     return coffee;
   } catch (error) {
-    console.error(`Error fetching coffee with id {${id}}: `, error);
+    console.error(`Error fetching coffee with id ${id}: `, error);
     throw new Error("Error fetching coffee");
   }
 };

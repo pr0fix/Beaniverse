@@ -25,11 +25,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    const initializeAuth = async () => {
+    const initializeApp = async () => {
       await Promise.all([dispatch(getUser()), dispatch(initializeCoffees())]);
       setIsLoading(false);
     };
-    initializeAuth();
+    initializeApp();
   }, [dispatch]);
 
   if (isLoading)

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { FormEvent, useState } from "react";
 import {
   Button,
   TextField,
@@ -16,15 +16,15 @@ interface EditCoffeeFormProps {
   onSubmit: (coffee: Partial<Coffee>) => void;
 }
 
-const EditCoffeeForm: React.FC<EditCoffeeFormProps> = ({
+const EditCoffeeForm = ({
   coffee,
   open,
   onClose,
   onSubmit,
-}) => {
+}: EditCoffeeFormProps) => {
   const [formData, setFormData] = useState<Coffee>(coffee);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
     onClose();
@@ -32,9 +32,7 @@ const EditCoffeeForm: React.FC<EditCoffeeFormProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>
-        Edit Coffee Details
-      </DialogTitle>
+      <DialogTitle>Edit Coffee Details</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <TextField

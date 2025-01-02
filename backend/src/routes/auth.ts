@@ -1,11 +1,15 @@
 import express, { Request, Response } from "express";
 import authService from "../services/authService";
+import {
+  authenticateRole,
+  authenticateToken,
+} from "../middleware/authMiddleware";
 
 const router = express.Router();
 
 // login user
 router.post("/login", async (req: Request, res: Response) => {
-  const {username, password } = req.body;
+  const { username, password } = req.body;
   try {
     const result = await authService.login(username, password);
     if (result.error) {
@@ -21,7 +25,8 @@ router.post("/login", async (req: Request, res: Response) => {
 
 // add new user
 router.post("/signup", async (req: Request, res: Response) => {
-  const { role, username, name, password } = req.body;
+  const { username, name, password } = req.body;
+  const role = "user";
   try {
     const result = await authService.signup(role, username, name, password);
     res.status(201).send(result);
@@ -34,5 +39,26 @@ router.post("/signup", async (req: Request, res: Response) => {
     }
   }
 });
+
+router.post(
+  "/admin/signup",
+  authenticateToken,
+  authenticateRole,
+  async (req: Request, res: Response) => {
+    const { username, name, password } = req.body;
+    const role = "admin";
+    try {
+      const result = await authService.signup(role, username, name, password);
+      res.status(201).send(result);
+    } catch (error) {
+      console.error("Admin signup error:", error);
+      if (error instanceof Error) {
+        res.status(400).json({ error: "Invalid input" });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  }
+);
 
 export default router;
