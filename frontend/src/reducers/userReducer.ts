@@ -72,4 +72,35 @@ export const initializeUsers = () => {
   };
 };
 
+export const updateUser = (id: string, userData: Partial<User>) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(userOperationStart());
+    try {
+      const updatedUser = await userService.update(id, userData);
+      dispatch(updateUserSuccess(updatedUser));
+    } catch (error) {
+      dispatch(
+        userOperationFailure(
+          error instanceof Error ? error.message : "Unknown error"
+        )
+      );
+    }
+  };
+};
+
+export const removeUser = (id: string) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(userOperationStart());
+    try {
+      await userService.remove(id);
+    } catch (error) {
+      dispatch(
+        userOperationFailure(
+          error instanceof Error ? error.message : "Unknown error"
+        )
+      );
+    }
+  };
+};
+
 export default userSlice.reducer;

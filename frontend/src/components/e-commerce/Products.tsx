@@ -3,7 +3,7 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 import ProductCard from "./ProductCard";
 import { Typography } from "@mui/material";
 
-const Products: React.FC = () => {
+const Products = () => {
   const coffees = useAppSelector((state) => state.coffees);
   return (
     <div className="mt-24">

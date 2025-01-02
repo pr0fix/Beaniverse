@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Container, TextField, Typography } from "@mui/material";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { loginUser } from "../../reducers/authReducer";
@@ -11,7 +10,7 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("Password is required"),
 });
 
-const Login: React.FC = () => {
+const Login = () => {
   const dispatch = useAppDispatch();
 
   const handleLogin = async (values: {

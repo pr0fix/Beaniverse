@@ -15,11 +15,11 @@ interface AddCoffeeFormProps {
   onSubmit: (coffee: NewCoffee) => void;
 }
 
-const AddCoffeeForm: React.FC<AddCoffeeFormProps> = ({
+const AddCoffeeForm = ({
   open,
   onClose,
   onSubmit,
-}) => {
+}: AddCoffeeFormProps) => {
   const [formData, setFormData] = useState<NewCoffee>({
     name: "",
     price: 0,

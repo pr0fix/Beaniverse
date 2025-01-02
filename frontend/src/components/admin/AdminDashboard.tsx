@@ -1,10 +1,9 @@
 import { Tab, Tabs } from "@mui/material";
-import React, { useState } from "react";
+import  { useState } from "react";
 import InventoryManagement from "./InventoryManagement";
-import { useNavigate } from "react-router";
 import UserManagement from "./UserManagement";
 
-const AdminDashboard: React.FC = () => {
+const AdminDashboard = () => {
   const [value, setValue] = useState(0);
   return (
     <div className="pt-16">
