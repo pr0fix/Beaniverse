@@ -5,6 +5,7 @@ import {
   authenticateToken,
 } from "../middleware/authMiddleware";
 import Coffee from "../models/coffee";
+import { ICoffee } from "../utils/types";
 
 const router = express.Router();
 
@@ -42,7 +43,7 @@ router.post(
   authenticateToken,
   authenticateRole,
   async (req: Request, res: Response) => {
-    const { name, price, description, type, stock } = req.body;
+    const { name, price, description, type, stock }: ICoffee = req.body;
 
     try {
       const newCoffee = await coffeeService.addCoffee(
@@ -67,7 +68,7 @@ router.put(
   authenticateRole,
   async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { ...updatedData } = req.body;
+    const { ...updatedData }: Partial<ICoffee> = req.body;
 
     try {
       const coffeeToUpdate = await coffeeService.updateCoffee(id, updatedData);

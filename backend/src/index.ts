@@ -4,13 +4,13 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import authRouter from "./routes/auth";
 import coffeeRouter from "./routes/coffee";
-import userRouter from "./routes/users"
+import userRouter from "./routes/user";
+import orderRouter from "./routes/order";
 import { PORT } from "./utils/constants";
 
 const app = express();
 
-// add this to cors configuration later when there is a frontend to test backend with: {origin:"http://localhost:5173"}
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
 mongoose
@@ -27,7 +27,7 @@ app.get("/ping", (_req: Request, res: Response) => {
 });
 
 app.use("/auth", authRouter);
-app.use("/api", [coffeeRouter, userRouter]);
+app.use("/api", [coffeeRouter, userRouter, orderRouter]);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -1,5 +1,5 @@
 import { Tab, Tabs } from "@mui/material";
-import  { useState } from "react";
+import { useState } from "react";
 import InventoryManagement from "./InventoryManagement";
 import UserManagement from "./UserManagement";
 

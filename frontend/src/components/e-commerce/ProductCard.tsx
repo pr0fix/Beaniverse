@@ -6,7 +6,6 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import React from "react";
 import { Coffee } from "../../utils/types";
 
 interface ProductCardProps {
