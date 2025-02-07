@@ -25,7 +25,7 @@ const login = async (username: string, password: string) => {
     return { token, username: user.username, name: user.name, role: user.role };
   } catch (error) {
     console.error("Error during login:", error);
-    return { error: "Internal server error" };
+    throw new Error("Error during login");
   }
 };
 

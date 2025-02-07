@@ -2,7 +2,7 @@ import { Request } from "express";
 
 type Role = "admin" | "user";
 
-type Status = "Pending" | "Accepted" | "Preparing" | "Delivered" | "Cancelled";
+export type Status = "Pending" | "Accepted" | "Preparing" | "Delivered" | "Cancelled";
 
 export interface IUser {
   username: string;
