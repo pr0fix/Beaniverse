@@ -1,9 +1,9 @@
-
 # Beaniverse Coffee Shop
+
 Welcome to Beaniverse, a full-stack e-commerce application for a coffee shop built with React, TypeScript, and Node.js.
 
-
 ## Features
+
 - User authentication (login/signup)
 - Admin dashboard for inventory management
 - Product catalog with coffee listings
@@ -13,9 +13,10 @@ Welcome to Beaniverse, a full-stack e-commerce application for a coffee shop bui
 
 ## Tech Stack
 
-**Frontend:** 
+**Frontend:**
+
 - React 18 with TypeScript
--  Redux Toolkit for state management
+- Redux Toolkit for state management
 - Material UI components
 - Tailwind CSS for styling
 - Formik & Yup for form validation
@@ -23,6 +24,7 @@ Welcome to Beaniverse, a full-stack e-commerce application for a coffee shop bui
 - Vite as build tool
 
 **Backend:**
+
 - Node.js with Express
 - TypeScript
 - MongoDB with Mongoose
@@ -30,6 +32,7 @@ Welcome to Beaniverse, a full-stack e-commerce application for a coffee shop bui
 - bcrypt for password hashing
 
 ## Installation
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/pr0fix/Beaniverse.git
@@ -52,6 +55,7 @@ Welcome to Beaniverse, a full-stack e-commerce application for a coffee shop bui
    ```
 
 ## Running the Application
+
 1. Start the backend development server:
    ```bash
    cd backend
@@ -62,4 +66,22 @@ Welcome to Beaniverse, a full-stack e-commerce application for a coffee shop bui
    cd frontend
    npm run dev
    ```
-The frontend will be available at `http://localhost:5173` and the backend API will be available at `http://localhost:3000`
+   The frontend will be available at `http://localhost:5173` and the backend API will be available at `http://localhost:3000`
+
+## Screenshots
+
+#### Homepage
+
+<img src="./screenshots/homepage.png" alt="homepage" height="auto" width="800px"/>
+
+#### Products
+
+<img src="./screenshots/products.png" alt="homepage" height="auto" width="800px"/>
+
+#### Admin Dashboard - Stock Management
+
+<img src="./screenshots/stock_management.png" alt="homepage" height="auto" width="800px"/>
+
+#### Admin Dashboard - User Management
+
+<img src="./screenshots/user_management.png" alt="homepage" height="auto" width="800px"/>

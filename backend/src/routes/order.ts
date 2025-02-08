@@ -7,12 +7,12 @@ import {
 import { RequestWithUser, Status } from "../utils/types";
 import mongoose from "mongoose";
 
-interface OrderBody {
+interface OrderRequestBody {
   userId: mongoose.Types.ObjectId;
   items: string[];
 }
 
-interface UpdateStatusBody {
+interface UpdateStatusRequestBody {
   orderId: mongoose.Types.ObjectId;
   newStatus: Status;
 }
@@ -53,7 +53,7 @@ router.post(
   "/orders/create",
   authenticateToken,
   async (req: Request, res: Response) => {
-    const { userId, items }: OrderBody = req.body;
+    const { userId, items }: OrderRequestBody = req.body;
 
     try {
       const newOrder = await orderService.createOrder(userId, items);
@@ -70,7 +70,7 @@ router.patch(
   authenticateToken,
   authenticateRole,
   async (req: Request, res: Response) => {
-    const { orderId, newStatus }: UpdateStatusBody = req.body;
+    const { orderId, newStatus }: UpdateStatusRequestBody = req.body;
 
     try {
       const updatedOrder = await orderService.updateOrderStatus(

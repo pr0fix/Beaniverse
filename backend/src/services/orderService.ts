@@ -14,10 +14,8 @@ const getAllOrders = async () => {
 };
 
 const getOrdersByUserId = async (userId: mongoose.Types.ObjectId) => {
-  console.log(userId);
   try {
     const orders = await Order.find({ "userId": userId });
-    console.log(orders)
     return orders;
   } catch (error) {
     console.error(`Error fetching orders with id ${userId}:`, error);
