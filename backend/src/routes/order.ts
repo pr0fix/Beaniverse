@@ -4,17 +4,16 @@ import {
   authenticateRole,
   authenticateToken,
 } from "../middleware/authMiddleware";
-import { RequestWithUser, Status } from "../utils/types";
+import {
+  IOrder,
+  RequestWithUser,
+  UpdateStatusRequestBody,
+} from "../utils/types";
 import mongoose from "mongoose";
 
 interface OrderRequestBody {
   userId: mongoose.Types.ObjectId;
   items: string[];
-}
-
-interface UpdateStatusRequestBody {
-  orderId: mongoose.Types.ObjectId;
-  newStatus: Status;
 }
 
 const router = express.Router();
@@ -73,13 +72,35 @@ router.patch(
     const { orderId, newStatus }: UpdateStatusRequestBody = req.body;
 
     try {
-      const updatedOrder = await orderService.updateOrderStatus(
+      const updatedOrder = await orderService.updateOrderStatus({
         orderId,
-        newStatus
-      );
+        newStatus,
+      });
       res.status(200).json(updatedOrder);
     } catch (error) {
       console.error("Error updating order status:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
+router.patch(
+  "/orders/edit/:orderId",
+  authenticateToken,
+  authenticateRole,
+  async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+    const { ...updatedDetails }: Partial<IOrder> = req.body;
+
+    try {
+      const editedOrder = await orderService.editOrderDetails({
+        orderId,
+        updatedDetails,
+      });
+
+      res.status(200).json(editedOrder);
+    } catch (error) {
+      console.error("Error editing order details:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   }

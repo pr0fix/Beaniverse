@@ -1,4 +1,5 @@
 import { Request } from "express";
+import mongoose from "mongoose";
 
 type Role = "admin" | "user";
 
@@ -28,4 +29,14 @@ export interface ICoffee {
 
 export interface RequestWithUser extends Request {
   user?: any;
+}
+
+export interface UpdateStatusRequestBody {
+  orderId: mongoose.Types.ObjectId;
+  newStatus: Status;
+}
+
+export interface EditDetailsRequestBody {
+  orderId: string;
+  updatedDetails: Partial<IOrder>;
 }
