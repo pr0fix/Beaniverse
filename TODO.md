@@ -1,20 +1,25 @@
 # TODO List
 
 ## Backend
-**Database Setup**: 
+
+**Database Setup**:
+
 - [x] Create MongoDB Atlas database and connect to it.
 
 **Models**: Create Mongoose models for:
+
 - [x] Coffees
 - [x] Orders
 - [x] Users
 
 **Auth Routes**: Develop routes for:
+
 - [x] Login
 - [x] Signup
 - [x] Admin signup
 
 **Coffee Routes**: Develop routes for:
+
 - [x] Get all coffees
 - [x] Get coffee by ID
 - [x] Add new coffee
@@ -22,24 +27,29 @@
 - [x] Delete coffee
 
 **User Routes**: Develop routes for:
+
 - [x] Get all users
 - [x] Get user by ID
 
 **Database Services**:
+
 - [x] Services for auth
 - [x] Services for coffee
-- [x] Services for 
+- [x] Services for
 
 **Order Routes**: Develop routes for:
-- [ ] Get all orders
-- [ ] Get order by ID
-- [ ] Add new order
-- [ ] Edit order details
+
+- [x] Get all orders
+- [x] Get order by ID
+- [x] Add new order
+- [x] Update order status
+- [x] Edit order details
 - [ ] Delete order
 
 ---
 
 ## Frontend
+
 - [ ] **Auth System**: Add token renewal functionality to maintain session.
 - [ ] **Product Page**: Create a detailed single-product page (triggered when clicking a product card).
 - [ ] **About Us Section**: Add a visually appealing and informative "About Us" section.
@@ -57,8 +67,9 @@
 ---
 
 ## Admin Dashboard
+
 - [x] **Product/Inventory Management**: Add functionality to manage products and inventory.
-- [ ] **User Management**: Implement tools to manage user accounts.
+- [x] **User Management**: Implement tools to manage user accounts.
 - [ ] **Order Management**: Add functionality to view and update order statuses.
 - [ ] **Sales Trends**: Display sales trend charts, including:
   - Revenue trends over time.
@@ -68,7 +79,13 @@
 ---
 
 ## UI Components
+
 - [ ] **Footer Section**: Design and implement a responsive footer with:
   - Contact information
   - Social media links
   - Quick navigation links
+
+## Bug fixes
+
+- [ ] updated order status isn't returned in the response body, but is updated in database
+- [ ] updated order details aren't returned in the response body, but are updated in database

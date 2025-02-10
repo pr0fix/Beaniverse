@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 import Order from "../models/order";
 import calculateTotalPrice from "../utils/calculateOrderPrice";
-import { Status } from "../utils/types";
+import {
+  EditDetailsRequestBody,
+  UpdateStatusRequestBody,
+} from "../utils/types";
 
 const getAllOrders = async () => {
   try {
@@ -15,7 +18,7 @@ const getAllOrders = async () => {
 
 const getOrdersByUserId = async (userId: mongoose.Types.ObjectId) => {
   try {
-    const orders = await Order.find({ "userId": userId });
+    const orders = await Order.find({ userId: userId });
     return orders;
   } catch (error) {
     console.error(`Error fetching orders with id ${userId}:`, error);
@@ -43,13 +46,14 @@ const createOrder = async (
   }
 };
 
-const updateOrderStatus = async (
-  orderId: mongoose.Types.ObjectId,
-  newStatus: Status
-) => {
+const updateOrderStatus = async ({
+  orderId,
+  newStatus,
+}: UpdateStatusRequestBody) => {
   try {
     const orderToUpdate = await Order.findByIdAndUpdate(orderId, {
       status: newStatus,
+      updatedAt: Date.now(),
     });
 
     if (!orderToUpdate) {
@@ -63,9 +67,30 @@ const updateOrderStatus = async (
   }
 };
 
+const editOrderDetails = async ({
+  orderId,
+  updatedDetails,
+}: EditDetailsRequestBody) => {
+  try {
+    const orderToEdit = await Order.findByIdAndUpdate(orderId, updatedDetails, {
+      updatedAt: Date.now(),
+    });
+
+    if (!orderToEdit) {
+      throw new Error("Order to edit not found");
+    }
+
+    return orderToEdit;
+  } catch (error) {
+    console.error("Error editing order details:", error);
+    throw new Error("Error editing order details");
+  }
+};
+
 export default {
   getAllOrders,
   getOrdersByUserId,
   createOrder,
   updateOrderStatus,
+  editOrderDetails,
 };
