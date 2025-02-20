@@ -1,4 +1,4 @@
-import { Button, Container, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { loginUser } from "../../reducers/authReducer";
 import * as yup from "yup";
@@ -21,7 +21,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <Box className="min-h-screen flex items-center justify-center">
       <Container maxWidth="xs" className="mt-20 bg-white rounded-md p-8">
         <Typography variant="h3" className="text-primary-dark mb-4">
           Sign In
@@ -39,7 +39,7 @@ const Login = () => {
             errors,
             touched,
           }) => (
-            <div>
+            <Box>
               <TextField
                 fullWidth
                 placeholder="Username"
@@ -92,11 +92,11 @@ const Login = () => {
                   Don't have an account? Sign up
                 </Typography>
               </Link>
-            </div>
+            </Box>
           )}
         </Formik>
       </Container>
-    </div>
+    </Box>
   );
 };
 

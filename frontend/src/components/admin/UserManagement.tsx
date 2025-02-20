@@ -1,4 +1,4 @@
-import { Button, Paper } from "@mui/material";
+import { Box, Button, Paper } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
@@ -84,7 +84,7 @@ const UserManagement = () => {
   ];
 
   return (
-    <div className="m-8 p-3 bg-neutral-100 rounded-md">
+    <Box className="m-8 p-3 bg-neutral-100 rounded-md">
       <Paper className="h-400, w-100">
         <DataGrid
           rows={rows}
@@ -106,7 +106,7 @@ const UserManagement = () => {
           user={selectedUser as User}
         />
       )}
-    </div>
+    </Box>
   );
 };
 export default UserManagement;
