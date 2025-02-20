@@ -1,6 +1,5 @@
-import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, IconButton, Toolbar } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import CoffeeIcon from "@mui/icons-material/Coffee";
 import { Link } from "react-router";
 import { useAppSelector } from "../../hooks/reduxHooks";
 
@@ -9,27 +8,14 @@ const Navbar = ({ handleSignOut }: { handleSignOut: () => void }) => {
   const userRole = user.role;
 
   return (
-    <AppBar
-      position="fixed"
-      elevation={0}
-      className="bg-black/20 backdrop-blur-sm z-50"
-    >
+    <AppBar position="absolute" elevation={0} className="bg-primary-light p-3">
       <Toolbar className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <CoffeeIcon />
-          <Typography
-            variant="h5"
-            component={Link}
-            to="/"
-            className="text-white no-underline"
-          >
-            Beaniverse
-          </Typography>
-          <div className="flex gap-4">
+        <Box className="flex items-center gap-4">
+          <Box className="flex gap-8">
             <Button
               component={Link}
               to="/"
-              className="text-white border-white pt-2 font-medium bg-transparent"
+              className="text-text-primary text-base font-semibold bg-transparent"
               disableRipple
             >
               Home
@@ -37,23 +23,31 @@ const Navbar = ({ handleSignOut }: { handleSignOut: () => void }) => {
             <Button
               component={Link}
               to="/products"
-              className="text-white border-white pt-2 font-medium bg-transparent"
+              className="text-text-primary text-base font-semibold bg-transparent"
               disableRipple
             >
               Products
             </Button>
-          </div>
-        </div>
+            <Button
+              component={Link}
+              to="/about"
+              className="text-text-primary text-base font-semibold bg-transparent"
+              disableRipple
+            >
+              About
+            </Button>
+          </Box>
+        </Box>
 
-        <div className="flex items-center gap-2">
+        <Box className="flex items-center gap-2">
           {user.isAuthenticated ? (
             <>
               {userRole === "admin" && (
                 <Button
                   component={Link}
                   to="/admin"
-                  variant="outlined"
-                  className="text-white border-white bg-transparent"
+                  variant="contained"
+                  className="text-text-primary text-base font-semibold bg-transparent"
                   disableRipple
                 >
                   Admin Dashboard
@@ -62,7 +56,7 @@ const Navbar = ({ handleSignOut }: { handleSignOut: () => void }) => {
               <Button
                 onClick={handleSignOut}
                 variant="contained"
-                className="text-white bg-red-900"
+                className="text-text-light text-base font-semibold bg-red-900"
                 disableRipple
               >
                 Sign Out
@@ -72,16 +66,21 @@ const Navbar = ({ handleSignOut }: { handleSignOut: () => void }) => {
             <Button
               component={Link}
               to="/login"
-              className="text-white bg-transparent"
+              className="text-text-primary text-base font-medium bg-transparent"
               disableRipple
             >
               Sign In
             </Button>
           )}
-          <IconButton component={Link} to="/cart" className="text-white">
+          <IconButton
+            component={Link}
+            to="/cart"
+            className="text-text-primary"
+            disableRipple
+          >
             <ShoppingCartIcon />
           </IconButton>
-        </div>
+        </Box>
       </Toolbar>
     </AppBar>
   );

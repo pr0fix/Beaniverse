@@ -4,15 +4,15 @@ import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
 import { useAdmin } from "./hooks/authHooks";
 import { getUser, logoutUser } from "./reducers/authReducer";
-import AdminDashboard from "./components/admin/AdminDashboard";
-import Login from "./components/auth/Login";
 import { initializeCoffees } from "./reducers/coffeeReducer";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import Login from "./components/auth/Login";
 import Navbar from "./components/e-commerce/Navbar";
 import Home from "./components/e-commerce/Home";
 import Products from "./components/e-commerce/Products";
-import background from "./assets/general_background.png";
 import SignUp from "./components/auth/SignUp";
+import Cart from "./components/e-commerce/Cart";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,12 +41,7 @@ const App = () => {
 
   return (
     <>
-      <div
-        className="fixed inset-0 bg-center -z-10 min-h-screen bg-cover"
-        style={{ backgroundImage: `url(${background})` }}
-      />
       <Navbar handleSignOut={handleSignOut} />
-
       <Routes>
         <Route
           path="/admin"
@@ -62,6 +57,7 @@ const App = () => {
         />
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/cart" element={<Cart />} />
         <Route
           path="/login"
           element={

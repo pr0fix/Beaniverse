@@ -1,5 +1,6 @@
 import  { useState } from "react";
 import {
+  Box,
   Button,
   Paper,
   Table,
@@ -55,7 +56,7 @@ const InventoryManagement = () => {
   };
 
   return (
-    <div className="m-8 p-3 bg-neutral-100 rounded-md">
+    <Box className="m-8 p-3 bg-neutral-100 rounded-md">
       <Button
         variant="contained"
         className="bg-primary-main mb-4"
@@ -123,7 +124,7 @@ const InventoryManagement = () => {
           coffee={selectedCoffee as Coffee}
         />
       )}
-    </div>
+    </Box>
   );
 };
 

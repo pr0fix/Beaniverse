@@ -63,6 +63,8 @@
   - Remove items
   - Display subtotal and total cost
 - [ ] **Checkout Page**: Create a user-friendly checkout page for placing orders.
+- [ ] **Navbar**: Make the navbar responsive with burgermenu or other solution on smaller screens
+- [ ] **Error handling**: Make notifications for different operations e.g. signing in with wrong username or password
 
 ---
 
